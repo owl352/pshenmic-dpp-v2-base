@@ -8,6 +8,7 @@ use dpp::platform_value::string_encoding::{decode, encode};
 use dpp::prelude::Identity;
 use dpp::serialization::{PlatformDeserializable, PlatformSerializable};
 
+#[derive(Debug, Clone)]
 pub struct IdentityBind(Identity);
 
 impl IdentityBind {
