@@ -3,7 +3,7 @@ use crate::errors::identifier::IdentifierError;
 use crate::errors::utils::DecodeStringError;
 use dpp::prelude::Identifier;
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct IdentifierBind(Identifier);
 
 impl From<Identifier> for IdentifierBind {
