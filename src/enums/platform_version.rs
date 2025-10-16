@@ -1,3 +1,4 @@
+use crate::errors::enums::EnumsError;
 use dpp::version::PlatformVersion;
 use dpp::version::v1::PLATFORM_V1;
 use dpp::version::v2::PLATFORM_V2;
@@ -7,7 +8,6 @@ use dpp::version::v6::PLATFORM_V6;
 use dpp::version::v7::PLATFORM_V7;
 use dpp::version::v8::PLATFORM_V8;
 use dpp::version::v9::PLATFORM_V9;
-use crate::errors::enums::EnumsError;
 
 #[derive(Default)]
 #[allow(non_camel_case_types)]
@@ -25,7 +25,6 @@ pub enum PlatformVersionBind {
 }
 
 impl TryFrom<u32> for PlatformVersionBind {
-
     type Error = EnumsError;
 
     fn try_from(value: u32) -> Result<Self, Self::Error> {
@@ -46,7 +45,7 @@ impl TryFrom<u32> for PlatformVersionBind {
 
 impl From<PlatformVersionBind> for PlatformVersion {
     fn from(value: PlatformVersionBind) -> Self {
-        match value { 
+        match value {
             PlatformVersionBind::PLATFORM_V1 => PLATFORM_V1,
             PlatformVersionBind::PLATFORM_V2 => PLATFORM_V2,
             PlatformVersionBind::PLATFORM_V3 => PLATFORM_V3,
@@ -55,7 +54,7 @@ impl From<PlatformVersionBind> for PlatformVersion {
             PlatformVersionBind::PLATFORM_V6 => PLATFORM_V6,
             PlatformVersionBind::PLATFORM_V7 => PLATFORM_V7,
             PlatformVersionBind::PLATFORM_V8 => PLATFORM_V8,
-            PlatformVersionBind::PLATFORM_V9 => PLATFORM_V9
+            PlatformVersionBind::PLATFORM_V9 => PLATFORM_V9,
         }
     }
 }

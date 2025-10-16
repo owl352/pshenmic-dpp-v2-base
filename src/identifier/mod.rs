@@ -1,4 +1,6 @@
-use dpp::platform_value::string_encoding::Encoding;
+use crate::enums::encoding::EncodingBind;
+use crate::errors::identifier::IdentifierError;
+use crate::errors::utils::DecodeStringError;
 use dpp::prelude::Identifier;
 
 #[derive(Clone)]
@@ -17,16 +19,11 @@ impl Into<Identifier> for IdentifierBind {
 }
 
 impl IdentifierBind {
-    pub fn from_hex(str: String) -> Result<Self, String> {
+    pub fn from_string(str: String, encoding: EncodingBind) -> Result<Self, IdentifierError> {
         Ok(IdentifierBind(
-            Identifier::from_string(str.as_str(), Encoding::Hex).map_err(|err| err.to_string())?,
-        ))
-    }
-
-    pub fn from_base58(str: String) -> Result<Self, String> {
-        Ok(IdentifierBind(
-            Identifier::from_string(str.as_str(), Encoding::Base58)
-                .map_err(|err| err.to_string())?,
+            Identifier::from_string(str.as_str(), encoding.into()).map_err(|err| {
+                IdentifierError::from(DecodeStringError::CannotDecodeString(err.to_string()))
+            })?,
         ))
     }
 
@@ -35,20 +32,15 @@ impl IdentifierBind {
             Identifier::from_bytes(bytes.as_slice()).map_err(|err| err.to_string())?,
         ))
     }
-    
-    
-    pub fn to_hex(&self) -> String {
-        self.0.to_string(Encoding::Hex)
+
+    pub fn to_string(&self, encoding_bind: EncodingBind) -> String {
+        self.0.to_string(encoding_bind.into())
     }
 
-    pub fn to_base58(&self) -> String {
-        self.0.to_string(Encoding::Base58)
-    }
-    
-    pub fn to_bytes(&self) -> [u8; 32]{
+    pub fn to_bytes(&self) -> [u8; 32] {
         self.0.as_bytes().clone()
     }
-    
+
     pub fn to_vec(&self) -> Vec<u8> {
         self.0.to_vec()
     }

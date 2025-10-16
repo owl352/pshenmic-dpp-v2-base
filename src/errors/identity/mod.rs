@@ -1,5 +1,5 @@
-use std::fmt;
 use crate::errors::utils::DecodeStringError;
+use std::fmt;
 
 #[derive(Debug)]
 pub enum IdentityError {
