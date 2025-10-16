@@ -27,9 +27,10 @@ impl IdentifierBind {
         ))
     }
 
-    pub fn from_vec(bytes: Vec<u8>) -> Result<Self, String> {
+    pub fn from_vec(bytes: Vec<u8>) -> Result<Self, IdentifierError> {
         Ok(IdentifierBind(
-            Identifier::from_bytes(bytes.as_slice()).map_err(|err| err.to_string())?,
+            Identifier::from_bytes(bytes.as_slice())
+                .map_err(|err| IdentifierError::IdentifierFromBytesFailed(err.to_string()))?,
         ))
     }
 

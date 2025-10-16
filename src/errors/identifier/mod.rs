@@ -4,6 +4,7 @@ use std::fmt;
 #[derive(Debug)]
 pub enum IdentifierError {
     IdentifierFromStringFailed(String),
+    IdentifierFromBytesFailed(String),
 }
 
 impl From<DecodeStringError> for IdentifierError {
